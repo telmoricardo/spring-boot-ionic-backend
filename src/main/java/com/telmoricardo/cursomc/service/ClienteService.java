@@ -33,15 +33,19 @@ public class ClienteService {
 	private CidadeRepository cidadeRepository;
 	
 	@Autowired
-	private EnderecoRepository enderecoRepository;
-	
-	
-	
+	private EnderecoRepository enderecoRepository;	
 	
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(()-> new ObjectNotFoundException(
 				"Objeto não encotnrado Id: " + id + ", Tipo: " + Cliente.class 
+				));
+	}
+	
+	public Cliente findByEmail(String email) {
+		Optional<Cliente> obj = clienteRepository.findByEmail(email);
+		return obj.orElseThrow(()-> new ObjectNotFoundException(
+				"Objeto não encontrado E-mai: " + email + ", Tipo: " + Cliente.class 
 				));
 	}
 	
@@ -84,7 +88,7 @@ public class ClienteService {
 	}
 	
 	public Cliente fromDTO(ClienteNewDTO objDTO) {
-		Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getEmail(), TipoCliente.toEnum(objDTO.getTipo()));
+		Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(), TipoCliente.toEnum(objDTO.getTipo()));
 		//Cidade cid = cidadeRepository.findOne(objDTO.getCidadeId());
 		Cidade cid = cidadeRepository.findById(objDTO.getCidadeId()).orElse(null);
 		Endereco end = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(),
