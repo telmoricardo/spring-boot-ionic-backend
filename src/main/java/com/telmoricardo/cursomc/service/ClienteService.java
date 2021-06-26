@@ -42,12 +42,6 @@ public class ClienteService {
 				));
 	}
 	
-	public Cliente findByEmail(String email) {
-		Optional<Cliente> obj = clienteRepository.findByEmail(email);
-		return obj.orElseThrow(()-> new ObjectNotFoundException(
-				"Objeto não encontrado E-mai: " + email + ", Tipo: " + Cliente.class 
-				));
-	}
 	
 	@Transactional
 	public Cliente insert(Cliente obj) {
