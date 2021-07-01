@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 
 import com.telmoricardo.cursomc.service.DBService;
 import com.telmoricardo.cursomc.service.EmailService;
-import com.telmoricardo.cursomc.service.MockEmailService;
+import com.telmoricardo.cursomc.service.SmtpEmailService;
 
-@Configuration("dev")
-public class DevConfig {
+@Configuration("hml")
+public class HmlConfig {
 	
 	@Autowired
 	private DBService dbService;
@@ -28,10 +28,11 @@ public class DevConfig {
 		
 		dbService.instantiateTestDatabase();
 		return true;
-	}
+	}	
 	
 	@Bean
 	public EmailService emailService() {
-		return new MockEmailService();
+		return new SmtpEmailService();
 	}
+	
 }
